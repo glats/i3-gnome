@@ -1,0 +1,279 @@
+;;----------------------------------
+;; Configuration made it by:
+;;    ____ _        _  _____ ____
+;;   / ___| |      / \|_   _/ ___|
+;;  | |  _| |     / _ \ | | \___ \
+;;  | |_| | |___ / ___ \| |  ___) |
+;;   \____|_____/_/   \_\_| |____/
+;;__________________________________
+
+[colors]
+background = ${xrdb:color0:#222}
+foreground = ${xrdb:color7:#222}
+foreground-alt = ${xrdb:color7:#222}
+;principal = ${xrdb:color1:#222}
+secondary = ${xrdb:color2:#222}
+alert = ${xrdb:color3:#222}
+
+;[colors]
+;background = #222
+;background-alt = #444
+;foreground = #dfdfdf
+;foreground-alt = #888888
+
+principal = #ffffff
+
+[settings]
+screenchange-reload = true
+;compositing-background = xor
+;compositing-background = screen
+;compositing-foreground = source
+;compositing-border = over
+;pseudo-transparency = false
+
+[global/wm]
+
+[bar/main]
+width = 100%
+height = 25
+background = ${colors.background}
+foreground = ${colors.principal}
+
+line-size = 1
+line-color = #f00
+
+border-top-size = 5
+border-left-size = 10
+border-right-size = 10
+border-color = #00000000
+
+radius-top = 5.0
+
+padding-left = 1
+padding-right = 2
+
+module-margin-left = 1
+module-margin-right = 1
+
+font-0 = DejaVu Sans Mono:style=Book:size=8
+font-1 = Font Awesome 5 Free:style=Regular:size=9
+font-2 = Font Awesome 5 Free:style=Solid:size=9
+font-3 = Font Awesome 5 Brands:style=Regular:size=9
+font-4 = Noto Color Emoji:style=Regular:size=9:scale=10
+
+modules-left = i3
+modules-center = xwindow
+modules-right = xbacklight pulseaudio battery temperature xkeyboard date powermenu
+bottom = true
+
+tray-position = right
+tray-padding = 2
+
+scroll-up = i3wm-wsnext
+scroll-down = i3wm-wsprev
+; this two options doenst work well put windows overall in i3
+;wm-restack = i3
+;override-redirect = true 
+
+cursor-click = pointer
+
+[module/xwindow]
+type = internal/xwindow
+label = %title%
+label-maxlen = 50
+
+[module/i3]
+type = internal/i3
+format = <label-state> <label-mode>
+index-sort = true
+; TODO change in i3 icons
+;strip-wsnumbers = true
+wrapping-scroll = false
+ 
+; Only show workspaces on the same output as the bar
+;pin-workspaces = true
+
+label-mode = %mode%
+label-mode-padding = 1
+label-mode-foreground = #000
+label-mode-background = ${colors.principal}
+ 
+; focused = Active workspace on focused monitor
+label-focused = %index%
+label-focused-padding = 1
+label-focused-background = ${colors.background}
+ 
+; unfocused = Inactive workspace on any monitor
+label-unfocused = %index%
+label-unfocused-padding = 1
+label-unfocused-foreground = ${colors.foreground-alt}
+
+; visible = Active workspace on unfocused monitor
+label-visible = %index%
+label-visible-padding = ${self.label-focused-padding}
+label-visible-background = ${self.label-focused-background}
+ 
+; urgent = Workspace with urgency hint set
+label-urgent = %index%!
+label-urgent-padding = 1
+label-urgent-background = ${colors.principal}
+label-urgent-foreground = ${colors.background}
+
+label-separator = " "
+
+[module/xbacklight]
+type = internal/xbacklight
+format = <ramp> <label>
+label = %percentage%%
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-3 = 
+ramp-4 = 
+
+
+[module/backlight]
+inherit = module/xbacklight
+type = internal/backlight
+card = intel_backlight
+
+[module/wlan]
+type = internal/network
+interface = wlp1s0
+interval = 3.0
+
+format-connected = <ramp-signal> <label-connected>
+label-connected = %essid%
+format-disconnected =
+;format-disconnected = <label-disconnected>
+;format-disconnected-underline = ${self.format-connected-underline}
+;label-disconnected = %ifname% disconnected
+;label-disconnected-foreground = ${colors.foreground}
+ramp-signal-foreground = ${colors.principal}
+
+[module/pulseaudio]
+type = internal/pulseaudio
+ 
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage%%
+label-volume-foreground = ${colors.principal}
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
+
+label-muted =  muted
+format-muted-foreground = ${colors.principal}
+
+
+[module/battery]
+#ls -1 /sys/class/power_supply/
+type = internal/battery
+battery = BAT1
+adapter = ADP1
+full-at = 98
+
+format-charging = <animation-charging> <label-charging>
+
+format-discharging = <animation-discharging> <label-discharging>
+
+format-full-prefix = " "
+format-full-prefix-foreground = ${colors.principal}
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+ramp-capacity-foreground = ${colors.principal}
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-foreground = ${colors.principal}
+animation-charging-framerate = 500
+
+
+animation-discharging-4 = 
+animation-discharging-3 = 
+animation-discharging-2 = 
+animation-discharging-1 = 
+animation-discharging-0 = 
+animation-discharging-foreground = ${colors.principal}
+animation-discharging-framerate = 500
+
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = <ramp> <label>
+format-warn = <ramp> <label-warn>
+
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = #e60053
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.principal}
+
+[module/powermenu]
+type = custom/menu
+
+expand-right = true
+
+format-spacing = 1
+
+label-open = 
+label-open-foreground = #e60053
+label-close =  cancel
+label-close-foreground = #e60053
+label-separator = |
+label-separator-foreground = #555
+
+menu-0-0 = reboot
+menu-0-0-exec = menu-open-1
+menu-0-1 = power off
+menu-0-1-exec = menu-open-2
+
+menu-1-0 = cancel
+menu-1-0-exec = menu-open-0
+menu-1-1 = reboot
+menu-1-1-exec = sudo reboot
+
+menu-2-1 = power off
+menu-2-1-exec = sudo poweroff
+menu-2-0 = cancel
+menu-2-0-exec = menu-open-0
+
+[module/xkeyboard]
+type = internal/xkeyboard
+
+format-prefix = " "
+format-prefix-foreground = ${colors.principal}
+
+label-layout = %layout%
+
+label-indicator-padding = 1
+label-indicator-margin = 1
+label-indicator-background = ${colors.background}
+
+[module/date]
+type = internal/date
+interval = 5
+
+date =
+date-alt = " %Y-%m-%d"
+
+time = %H:%M
+time-alt = %H:%M:%S
+
+format-prefix = 
+format-prefix-foreground = ${colors.principal}
+
+label = %date% %time%
+
+; vim:ft=dosini
