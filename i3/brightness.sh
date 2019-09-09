@@ -11,6 +11,7 @@ icon_high="notification-display-brightness-high.svg"
 icon_full="notification-display-brightness-full.svg"
 icon_off="notification-display-brightness-off.svg"
 notify=$HOME/.config/i3/notify-send.sh
+backlight=sysfs/backlight/acpi_video0
 
 
 function get_brightness {
@@ -52,11 +53,11 @@ function brightness_notification {
 
 case $1 in
     up)
-        light -A 5
+        light -s $backlight -A 5
         brightness_notification
         ;;
     down)
-        light -U 5
+        light -s $backlight -U 5
         brightness_notification
 	    ;;
     *)
